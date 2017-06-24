@@ -8,6 +8,7 @@ using System.Web.Http.Description;
 
 namespace FindTheClueBE.Controllers
 {
+    [Authorize]
     public class QuestionsController : ApiController
     {
         private ApplicationDbContext db = new ApplicationDbContext();

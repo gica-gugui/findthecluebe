@@ -32,7 +32,7 @@ namespace FindTheClueBE.Models
         public string Description { get; set; }
 
         [Required]
-        public string RatingCounter { get; set; }
+        public int RatingCounter { get; set; }
 
         public ICollection<Question> Question { get; set; }
     }

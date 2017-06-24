@@ -226,6 +226,10 @@
     <Compile Include="Migrations\201706181526357_Initial.Designer.cs">
       <DependentUpon>201706181526357_Initial.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201706242035239_ModifiedRatingColumn.cs" />
+    <Compile Include="Migrations\201706242035239_ModifiedRatingColumn.Designer.cs">
+      <DependentUpon>201706242035239_ModifiedRatingColumn.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -308,6 +312,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201706181526357_Initial.resx">
       <DependentUpon>201706181526357_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201706242035239_ModifiedRatingColumn.resx">
+      <DependentUpon>201706242035239_ModifiedRatingColumn.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

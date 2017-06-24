@@ -24,6 +24,7 @@ namespace FindTheClueBE.Controllers
         public IHttpActionResult GetGame(int id)
         {
             Game game = db.Games.Find(id);
+
             if (game == null)
             {
                 return NotFound();
