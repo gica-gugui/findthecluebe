@@ -46,6 +46,7 @@ namespace FindTheClueBE.Controllers
 
         private const string LocalLoginProvider = "Local";
         private ApplicationUserManager _userManager;
+        private ApplicationDbContext db = new ApplicationDbContext();
 
         public AccountController()
         {
@@ -99,7 +100,7 @@ namespace FindTheClueBE.Controllers
             if (user == null)
             {
 
-                user = new ApplicationUser() { UserName = fbUser.name, Email = fbUser.email };
+                user = new ApplicationUser() { UserName = fbUser.email, Email = fbUser.email };
 
                 IdentityResult result = UserManager.Create(user);
                 if (!result.Succeeded)
@@ -422,13 +423,66 @@ namespace FindTheClueBE.Controllers
                 return BadRequest(ModelState);
             }
 
-            var user = new ApplicationUser() { UserName = model.Email, Email = model.Email };
+            var user = new ApplicationUser()
+            {
+                UserName = model.Email,
+                Email = model.Email,
+                DisplayName = model.Name,
+                ProfileImageUrl = model.ProfileImageUrl,
+                Points = model.Points
+            };
 
             IdentityResult result = await UserManager.CreateAsync(user, model.Password);
 
             if (!result.Succeeded)
             {
                 return GetErrorResult(result);
+            }
+
+            return Ok();
+        }
+
+        // POST api/Account/Edit
+        [Route("Edit")]
+        public async Task<IHttpActionResult> Edit(EditUserModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var userId = User.Identity.GetUserId();
+
+            var user = await UserManager.FindByIdAsync(userId);
+
+            if (user == null)
+            {
+                return InternalServerError();
+            }
+
+
+            if (!string.IsNullOrEmpty(model.Name))
+            {
+                user.DisplayName = model.Name;
+            }
+
+            if (model.Points >= 0)
+            {
+                user.Points = model.Points;
+            }
+
+            if (!string.IsNullOrEmpty(model.ProfileImageUrl))
+            {
+                user.ProfileImageUrl = model.ProfileImageUrl;
+            }
+
+            var store = new UserStore<ApplicationUser>(db);
+
+            var identityResult = await UserManager.UpdateAsync(user);
+
+            if (!identityResult.Succeeded)
+            {
+                return GetErrorResult(identityResult);
             }
 
             return Ok();

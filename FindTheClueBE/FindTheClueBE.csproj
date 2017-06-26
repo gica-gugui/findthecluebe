@@ -230,6 +230,10 @@
     <Compile Include="Migrations\201706242035239_ModifiedRatingColumn.Designer.cs">
       <DependentUpon>201706242035239_ModifiedRatingColumn.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201706261845159_NewPropertiesApplicationUser.cs" />
+    <Compile Include="Migrations\201706261845159_NewPropertiesApplicationUser.Designer.cs">
+      <DependentUpon>201706261845159_NewPropertiesApplicationUser.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -315,6 +319,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201706242035239_ModifiedRatingColumn.resx">
       <DependentUpon>201706242035239_ModifiedRatingColumn.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201706261845159_NewPropertiesApplicationUser.resx">
+      <DependentUpon>201706261845159_NewPropertiesApplicationUser.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

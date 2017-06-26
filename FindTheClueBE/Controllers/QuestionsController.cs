@@ -1,4 +1,5 @@
 ﻿using FindTheClueBE.Models;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
@@ -8,7 +9,7 @@ using System.Web.Http.Description;
 
 namespace FindTheClueBE.Controllers
 {
-    [Authorize]
+    //[Authorize]
     public class QuestionsController : ApiController
     {
         private ApplicationDbContext db = new ApplicationDbContext();
@@ -96,6 +97,13 @@ namespace FindTheClueBE.Controllers
             db.SaveChanges();
 
             return Ok(question);
+        }
+
+        [Route("api/questions/game/{gameId}")]
+        [ResponseType(typeof(List<Question>))]
+        public IHttpActionResult GetQuestionsForGame(int gameId)
+        {
+            return Ok(db.Questions.Where(q => q.GameId == gameId));
         }
 
         protected override void Dispose(bool disposing)

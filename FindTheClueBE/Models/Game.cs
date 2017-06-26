@@ -16,22 +16,16 @@ namespace FindTheClueBE.Models
         [Required]
         public string City { get; set; }
 
-        [Required]
         public int Difficulty { get; set; }
 
-        [Required]
         public double Rating { get; set; }
 
-        [Required]
         public string PictureUrl { get; set; }
 
-        [Required]
         public int Duration { get; set; }
 
-        [Required]
         public string Description { get; set; }
 
-        [Required]
         public int RatingCounter { get; set; }
 
         public ICollection<Question> Question { get; set; }
