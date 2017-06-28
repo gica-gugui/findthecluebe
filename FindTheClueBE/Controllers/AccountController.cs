@@ -10,6 +10,7 @@ using Microsoft.Owin.Security.OAuth;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
 using System.Security.Claims;
 using System.Security.Cryptography;
@@ -100,7 +101,7 @@ namespace FindTheClueBE.Controllers
             if (user == null)
             {
 
-                user = new ApplicationUser() { UserName = fbUser.email, Email = fbUser.email };
+                user = new ApplicationUser() { UserName = fbUser.email, Email = fbUser.email, DisplayName = fbUser.name };
 
                 IdentityResult result = UserManager.Create(user);
                 if (!result.Succeeded)
@@ -159,6 +160,14 @@ namespace FindTheClueBE.Controllers
                 HasRegistered = externalLogin == null,
                 LoginProvider = externalLogin != null ? externalLogin.LoginProvider : null
             };
+        }
+
+        [Route("Users")]
+        public List<EditUserModel> GetUsers()
+        {
+            var users = db.Users.Select(u => new EditUserModel() { Name = u.DisplayName, Points = u.Points, ProfileImageUrl = u.ProfileImageUrl }).ToList();
+
+            return users;
         }
 
         // POST api/Account/Logout
@@ -468,7 +477,7 @@ namespace FindTheClueBE.Controllers
 
             if (model.Points >= 0)
             {
-                user.Points = model.Points;
+                user.Points += model.Points;
             }
 
             if (!string.IsNullOrEmpty(model.ProfileImageUrl))
